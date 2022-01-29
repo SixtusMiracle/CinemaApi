@@ -19,6 +19,21 @@ namespace CinemaApi.Controllers
       _dbContext = dbContext;
     }
 
+    [Authorize]
+    [HttpGet("[action]")]
+    public IActionResult AllMovies() {
+      var movies = from movie in _dbContext.Movies
+                    select new {
+                      Id = movie.Id,
+                      Name = movie.Name,
+                      Duration = movie.Duration,
+                      Genre = movie.Genre,
+                      ImageUrl = movie.ImageUrl,
+                    };
+
+      return Ok(movies);
+    }
+
     [Authorize(Roles = "Admin")]
     [HttpPost]
     public IActionResult Post([FromForm] Movie movieObj)
