@@ -20,10 +20,10 @@ namespace CinemaApi.Models
     public double Rating { get; set; }
     public string Genre { get; set; }
     public string TrailorUrl { get; set; }
-    public string ImageUrl { get; set; }
+    public string? ImageUrl { get; set; }
 
     [NotMapped]
     public IFormFile Image { get; set; }
-    public ICollection<Reservation> Reservations { get; set; }
+    public ICollection<Reservation>? Reservations { get; set; }
   }
 }
