@@ -34,6 +34,18 @@ namespace CinemaApi.Controllers
       return Ok(movies);
     }
 
+    // api/movies/moviedetail/1
+    [Authorize]
+    [HttpGet("[action]/{id}")]
+    public IActionResult MovieDetail(int id) {
+      var movie = _dbContext.Movies.Find(id);
+      if (movie == null)
+      {
+        return NotFound();
+      }
+      return Ok(movie);
+    }
+
     [Authorize(Roles = "Admin")]
     [HttpPost]
     public IActionResult Post([FromForm] Movie movieObj)
