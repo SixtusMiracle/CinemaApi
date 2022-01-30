@@ -22,7 +22,9 @@ namespace CinemaApi.Controllers
     // api/movies/allmovies?sort=asc
     [Authorize]
     [HttpGet("[action]")]
-    public IActionResult AllMovies(string? sort) {
+    public IActionResult AllMovies(string? sort, int? pageNumber, int? pageSize) {
+      var currentPageNumber = pageNumber ?? 1;
+      var currentPageSize = pageSize ?? 3;
       var movies = from movie in _dbContext.Movies
                     select new {
                       Id = movie.Id,
@@ -37,11 +39,11 @@ namespace CinemaApi.Controllers
       switch (sort)
       {
         case "desc":
-          return Ok(movies.OrderByDescending(m => m.Rating));
+          return Ok(movies.Skip((currentPageNumber - 1) * currentPageSize).Take(currentPageSize).OrderByDescending(m => m.Rating));
         case "asc":
-          return Ok(movies.OrderBy(m => m.Rating));
+          return Ok(movies.Skip((currentPageNumber - 1) * currentPageSize).Take(currentPageSize).OrderBy(m => m.Rating));
         default:
-          return Ok(movies);
+          return Ok(movies.Skip((currentPageNumber - 1) * currentPageSize).Take(currentPageSize));
       }
 
     }
