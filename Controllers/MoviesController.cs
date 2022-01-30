@@ -19,19 +19,31 @@ namespace CinemaApi.Controllers
       _dbContext = dbContext;
     }
 
+    // api/movies/allmovies?sort=asc
     [Authorize]
     [HttpGet("[action]")]
-    public IActionResult AllMovies() {
+    public IActionResult AllMovies(string? sort) {
       var movies = from movie in _dbContext.Movies
                     select new {
                       Id = movie.Id,
                       Name = movie.Name,
                       Duration = movie.Duration,
+                      Language = movie.Language,
+                      Rating = movie.Rating,
                       Genre = movie.Genre,
                       ImageUrl = movie.ImageUrl,
                     };
 
-      return Ok(movies);
+      switch (sort)
+      {
+        case "desc":
+          return Ok(movies.OrderByDescending(m => m.Rating));
+        case "asc":
+          return Ok(movies.OrderBy(m => m.Rating));
+        default:
+          return Ok(movies);
+      }
+
     }
 
     // api/movies/moviedetail/1
