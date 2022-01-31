@@ -50,5 +50,31 @@ namespace CinemaApi.Controllers
       return Ok(reservations);
     }
 
+    // api/reservations/1
+    [HttpGet("{id}")]
+    [Authorize(Roles = "Admin")]
+    public IActionResult GetReservations(int id) 
+    {
+      var reservations =  (from reservation in _dbContext.Reservations
+                          join customer in _dbContext.Users on reservation.UserId equals customer.Id
+                          join movie in _dbContext.Movies on reservation.MovieId equals movie.Id
+                          where reservation.Id == id
+                          select new 
+                          {
+                            Id = reservation.Id,
+                            ReservationTime = reservation.ReservationTime,
+                            CustomerName = customer.Name,
+                            MovieName = movie.Name,
+                            Email = customer.Email,
+                            Qty = reservation.Qty,
+                            Price = reservation.Price,
+                            Phone = reservation.Phone,
+                            PlayingDate = movie.PlayingDate,
+                            PlayingTime = movie.PlayingTime,
+                          }).FirstOrDefault();
+
+      return Ok(reservations);
+    }
+
   }
 }
