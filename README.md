@@ -24,6 +24,13 @@ dotnet restore
 dotnet run
 ```
 
+## Contributing
+- Fork the repo ( https://github.com/sixtusmiracle/cinemaapi/fork )
+- Create a branch for your new feature ( `git checkout -b my-new-feature` )
+- Commit your changes (`git commit -am 'Added some feature'`)
+- Push to the branch (`git push origin my-new-feature`)
+- Create a new [Pull Request](https://github.com/sixtusmiracle/cinemaapi/pulls)
+
 ## License
 
 GENERAL PUBLIC LICENSE 3.0
