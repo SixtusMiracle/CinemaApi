@@ -9,7 +9,7 @@
 
 A cinema app api with C# AspDotNetCore 6.0 WebApi
 
-## Instalation
+## Installation
 
 ```bash
 git clone https://github.com/sixtusmiracle/CinemaApi
@@ -38,8 +38,4 @@ GENERAL PUBLIC LICENSE 3.0
 ## About the Author
 
 Created by Sixtus Miracle.
-
-## Donate
-
-You can support me via [Barter](https://barter.me/sixtusagbo)
 
